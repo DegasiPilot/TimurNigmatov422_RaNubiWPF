@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="71f9a014e4a34ffd94041dd6593ef039" Name="Diagram1">
+        <EntityTypeShape EntityType="TimurNigamtov422_RaNubiDBModel.Pet" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TimurNigamtov422_RaNubiDBModel.Post" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TimurNigamtov422_RaNubiDBModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TimurNigamtov422_RaNubiDBModel.Users" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <AssociationConnector Association="TimurNigamtov422_RaNubiDBModel.FK_Post_Pet" ManuallyRouted="false" />
+        <AssociationConnector Association="TimurNigamtov422_RaNubiDBModel.FK_Users_Pet1" ManuallyRouted="false" />
+        <AssociationConnector Association="TimurNigamtov422_RaNubiDBModel.FK_Post_Users" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
