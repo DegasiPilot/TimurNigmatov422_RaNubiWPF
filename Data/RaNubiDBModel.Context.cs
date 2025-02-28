@@ -26,8 +26,8 @@ namespace TimurNigmatov422_RaNubiWPF.Data
         }
     
         public virtual DbSet<Pet> Pet { get; set; }
-        public virtual DbSet<Post> Post { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Post> Post { get; set; }
     }
 }

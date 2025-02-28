@@ -18,6 +18,7 @@ namespace TimurNigmatov422_RaNubiWPF.Data
         public int Pet_Id { get; set; }
         public string Text { get; set; }
         public int InfoCreator_Id { get; set; }
+        public byte[] ImageBytes { get; set; }
     
         public virtual Pet Pet { get; set; }
         public virtual Users Users { get; set; }

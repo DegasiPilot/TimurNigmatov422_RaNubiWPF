@@ -4,22 +4,23 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище TimurNigamtov422_RaNubiDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище TimurNigamtov422_RaNubiDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Pet">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Post">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Pet_Id" Type="int" Nullable="false" />
           <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
           <Property Name="InfoCreator_Id" Type="int" Nullable="false" />
+          <Property Name="ImageBytes" Type="varbinary(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -35,7 +36,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Pet_Id" Type="int" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
@@ -94,8 +95,7 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TimurNigamtov422_RaNubiDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -105,19 +105,8 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Post" Relationship="Self.FK_Post_Pet" FromRole="Pet" ToRole="Post" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Users_Pet1" FromRole="Pet" ToRole="Users" />
-        </EntityType>
-        <EntityType Name="Post">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Pet_Id" Type="Int32" Nullable="false" />
-          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="InfoCreator_Id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Pet" Relationship="Self.FK_Post_Pet" FromRole="Post" ToRole="Pet" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_Post_Users" FromRole="Post" ToRole="Users" />
+          <NavigationProperty Name="Post" Relationship="TimurNigamtov422_RaNubiDBModel.FK_Post_Pet" FromRole="Pet" ToRole="Post" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -138,20 +127,8 @@
           <Property Name="Pet_Id" Type="Int32" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Pet" Relationship="Self.FK_Users_Pet1" FromRole="Users" ToRole="Pet" />
-          <NavigationProperty Name="Post" Relationship="Self.FK_Post_Users" FromRole="Users" ToRole="Post" />
+          <NavigationProperty Name="Post" Relationship="TimurNigamtov422_RaNubiDBModel.FK_Post_Users" FromRole="Users" ToRole="Post" />
         </EntityType>
-        <Association Name="FK_Post_Pet">
-          <End Role="Pet" Type="Self.Pet" Multiplicity="1" />
-          <End Role="Post" Type="Self.Post" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Pet">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Post">
-              <PropertyRef Name="Pet_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Users_Pet1">
           <End Role="Pet" Type="Self.Pet" Multiplicity="0..1" />
           <End Role="Users" Type="Self.Users" Multiplicity="*" />
@@ -164,9 +141,51 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="TimurNigamtov422_RaNubiDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Pet" EntityType="Self.Pet" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK_Users_Pet1" Association="Self.FK_Users_Pet1">
+            <End Role="Pet" EntitySet="Pet" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <EntitySet Name="Post" EntityType="TimurNigamtov422_RaNubiDBModel.Post" />
+          <AssociationSet Name="FK_Post_Pet" Association="TimurNigamtov422_RaNubiDBModel.FK_Post_Pet">
+            <End Role="Pet" EntitySet="Pet" />
+            <End Role="Post" EntitySet="Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Post_Users" Association="TimurNigamtov422_RaNubiDBModel.FK_Post_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Post" EntitySet="Post" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Pet_Id" Type="Int32" Nullable="false" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="InfoCreator_Id" Type="Int32" Nullable="false" />
+          <Property Name="ImageBytes" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Pet" Relationship="TimurNigamtov422_RaNubiDBModel.FK_Post_Pet" FromRole="Post" ToRole="Pet" />
+          <NavigationProperty Name="Users" Relationship="TimurNigamtov422_RaNubiDBModel.FK_Post_Users" FromRole="Post" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_Post_Pet">
+          <End Type="TimurNigamtov422_RaNubiDBModel.Pet" Role="Pet" Multiplicity="1" />
+          <End Type="TimurNigamtov422_RaNubiDBModel.Post" Role="Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="Pet_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Post_Users">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="Post" Type="Self.Post" Multiplicity="*" />
+          <End Type="TimurNigamtov422_RaNubiDBModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="TimurNigamtov422_RaNubiDBModel.Post" Role="Post" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -176,24 +195,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="TimurNigamtov422_RaNubiDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Pet" EntityType="Self.Pet" />
-          <EntitySet Name="Post" EntityType="Self.Post" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="Users" EntityType="Self.Users" />
-          <AssociationSet Name="FK_Post_Pet" Association="Self.FK_Post_Pet">
-            <End Role="Pet" EntitySet="Pet" />
-            <End Role="Post" EntitySet="Post" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Users_Pet1" Association="Self.FK_Users_Pet1">
-            <End Role="Pet" EntitySet="Pet" />
-            <End Role="Users" EntitySet="Users" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Post_Users" Association="Self.FK_Post_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Post" EntitySet="Post" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -205,16 +206,6 @@
               <MappingFragment StoreEntitySet="Pet">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Post">
-            <EntityTypeMapping TypeName="TimurNigamtov422_RaNubiDBModel.Post">
-              <MappingFragment StoreEntitySet="Post">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Pet_Id" ColumnName="Pet_Id" />
-                <ScalarProperty Name="Text" ColumnName="Text" />
-                <ScalarProperty Name="InfoCreator_Id" ColumnName="InfoCreator_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -236,6 +227,17 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Pet_Id" ColumnName="Pet_Id" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Post">
+            <EntityTypeMapping TypeName="TimurNigamtov422_RaNubiDBModel.Post">
+              <MappingFragment StoreEntitySet="Post">
+                <ScalarProperty Name="ImageBytes" ColumnName="ImageBytes" />
+                <ScalarProperty Name="InfoCreator_Id" ColumnName="InfoCreator_Id" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Pet_Id" ColumnName="Pet_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
