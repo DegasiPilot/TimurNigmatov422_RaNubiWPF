@@ -12,20 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TimurNigmatov422_RaNubiWPF.Pages;
 
-namespace TimurNigmatov422_RaNubiWPF
+namespace TimurNigmatov422_RaNubiWPF.Pages
 {
 	/// <summary>
-	/// Логика взаимодействия для MainWindow.xaml
+	/// Логика взаимодействия для HomePage.xaml
 	/// </summary>
-	public partial class MainWindow : Window
+	public partial class HomePage : Page
 	{
-		public MainWindow()
+		public HomePage()
 		{
 			InitializeComponent();
-			App.MainFrame = MainFrame;
-			MainFrame.Navigate(new Uri("Pages/AuthorizationPage.xaml", UriKind.Relative));
 		}
 	}
 }
