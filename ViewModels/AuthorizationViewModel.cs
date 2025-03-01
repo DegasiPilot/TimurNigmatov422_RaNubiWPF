@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows;
-using System.Windows.Input;
 using TimurNigmatov422_RaNubiWPF.Data;
 
 namespace TimurNigmatov422_RaNubiWPF.ViewModels
@@ -24,12 +19,13 @@ namespace TimurNigmatov422_RaNubiWPF.ViewModels
 		{
 			if(CanTryEnter(value))
 			{
-				Users users = App.db.Users.FirstOrDefault(user => user.Name == Name.Trim().ToLower());
-				if(users != null)
+				Users user = App.db.Users.FirstOrDefault(u => u.Name == Name.Trim().ToLower());
+				if(user != null)
 				{
-					if (users.Password == Password)
+					if (user.Password == Password)
 					{
-						App.MainFrame.Navigate(new Uri("Pages/HomePage.xaml", UriKind.Relative));
+						App.CurrentUser = user;
+						App.MainFrame.Navigate(App.HomePageUri);
 					}
 					else
 					{

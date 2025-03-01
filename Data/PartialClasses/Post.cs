@@ -10,10 +10,6 @@ namespace TimurNigmatov422_RaNubiWPF.Data
 {
 	public partial class Post
 	{
-		//private static ImageSourceConverter _imageConverter = new ImageSourceConverter();
-
-		//public ImageSource ImageSource => _imageConverter.ConvertFrom(ImageBytes);
-
 		public override string ToString()
 		{
 			return Text;

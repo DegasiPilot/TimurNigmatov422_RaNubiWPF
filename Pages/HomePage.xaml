@@ -14,7 +14,18 @@
     </Page.DataContext>
     
     <Grid>
-        <ListView ItemsSource="{Binding Posts}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Margin="5">
+            <TextBlock Margin="0 0 5 0" VerticalAlignment="Center">Поиск:</TextBlock>
+            <TextBox VerticalAlignment="Center" Margin="0 0 10 0" Width="100" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBlock Margin="0 0 5 0" VerticalAlignment="Center">Фильтр по автору:</TextBlock>
+            <ComboBox VerticalAlignment="Center" Margin="0 0 15 0" Width="250" ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}"></ComboBox>
+            <Button x:Name="AddPostBtn" Command="{Binding AddPostCommand}">Создать пост</Button>
+        </StackPanel>
+        <ListView ItemsSource="{Binding Posts}" Grid.Row="1" Margin="0 5 0 0">
             <ListView.View>
                 <GridView>
                     <GridView.Columns>
@@ -24,7 +35,7 @@
                         <GridViewColumn Header="Картинка">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Image></Image>
+                                    <Image MaxHeight="256" MaxWidth="256" Source="{Binding ImageBytes}"></Image>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
